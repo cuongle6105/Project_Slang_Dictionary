@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.project1.slangdictionary.controller.MainController">
+    <top>
+        <MenuBar>
+            <Menu text="File">
+                <MenuItem text="Reset to Original"/>
+                <MenuItem text="Exit"/>
+            </Menu>
+        </MenuBar>
+    </top>
+    <center>
+        <TabPane>
+            <Tab text="Search">
+                <VBox spacing="8">
+                    <padding>
+                        <Insets top="20" right="20" bottom="20" left="20" />
+                    </padding>
+                    <TableView fx:id="tableView">
+                        <columns>
+                            <TableColumn text="Word" fx:id="columnWord"/>
+                            <TableColumn text="Definitions" fx:id="columnDefs"/>
+                        </columns>
+                    </TableView>
+                </VBox>
+
+            </Tab>
+        </TabPane>
+    </center>
+</BorderPane>
