@@ -42,4 +42,9 @@ public class SlangWordRepositoryImpl implements SlangWordRepository {
     public List<SlangWordEntity> findAll() {
         return List.copyOf(dictionary.values());
     }
+
+    @Override
+    public SlangWordEntity findByWord(String word) {
+        return dictionary.get(word);
+    }
 }

@@ -19,4 +19,9 @@ public class SlangWordServiceImpl implements SlangWordService {
     public List<SlangWordEntity> findAll() {
         return slangWordRepository.findAll();
     }
+
+    @Override
+    public SlangWordEntity findByWord(String word) {
+        return slangWordRepository.findByWord(word);
+    }
 }

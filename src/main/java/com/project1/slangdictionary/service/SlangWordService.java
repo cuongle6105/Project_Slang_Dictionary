@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface SlangWordService {
     List<SlangWordEntity> findAll();
+    SlangWordEntity findByWord(String word);
 }
