@@ -25,6 +25,10 @@
                         <TextField fx:id="searchWord" promptText="Search by slang word"/>
                         <Button text="search" onAction="#handleSearchWord"/>
                     </HBox>
+                    <HBox spacing="10">
+                        <TextField fx:id="searchDefinition" promptText="Search by definition"/>
+                        <Button text="search" onAction="#handleSearchDefinition"/>
+                    </HBox>
                     <TableView fx:id="tableView">
                         <columns>
                             <TableColumn text="Word" fx:id="columnWord"/>

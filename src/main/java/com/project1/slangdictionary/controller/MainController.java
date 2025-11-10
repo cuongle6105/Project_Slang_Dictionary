@@ -23,7 +23,7 @@ public class MainController {
     @FXML
     private TableColumn<SlangWordEntity, String> columnWord, columnDefs;
     @FXML
-    private TextField searchWord;
+    private TextField searchWord, searchDefinition;
 
 
     private final SlangWordService slangWordService;
@@ -55,7 +55,22 @@ public class MainController {
             items.clear();
         }
         else {
-            items.setAll(slangWordService.findByWord(searchWord.getText()));
+            items.setAll(slangWordEntity);
+        }
+    }
+
+    @FXML
+    private void handleSearchDefinition() {
+        if (searchDefinition.getText().isEmpty()) {
+            items.setAll(slangWordService.findAll());
+            return;
+        }
+        List<SlangWordEntity> slangWordEntities = slangWordService.findByDefinition(searchDefinition.getText());
+        if (slangWordEntities == null || slangWordEntities.isEmpty()) {
+            items.clear();
+        }
+        else {
+            items.setAll(slangWordEntities);
         }
     }
 }

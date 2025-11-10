@@ -2,22 +2,39 @@ package com.project1.slangdictionary.repository.impl;
 
 import com.project1.slangdictionary.entity.SlangWordEntity;
 import com.project1.slangdictionary.repository.SlangWordRepository;
+import com.project1.slangdictionary.util.TokenUtil;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class SlangWordRepositoryImpl implements SlangWordRepository {
     private String path;
     private Map<String, SlangWordEntity> dictionary;
+    private Map<String, Set<String>> definitionTokens = new HashMap<>();
 
     public SlangWordRepositoryImpl() {
         this.path = "data/slang.txt";
         this.dictionary = readDictionary();
+        this.definitionTokens = buildDefinitions();
+    }
+
+    private Map<String, Set<String>> buildDefinitions () {
+        Map<String, Set<String>> definitions = new HashMap<>();
+        for (SlangWordEntity slangWordEntity : dictionary.values()) {
+            for (String definition : slangWordEntity.getDefinition()) {
+                for (String token : TokenUtil.splitToTokens(definition)) {
+                    Set<String> set = definitions.get(token);
+                    if (set == null) {
+                        set = new HashSet<>();
+                        definitions.put(token, set);
+                    }
+                    set.add(slangWordEntity.getWord());
+                }
+            }
+        }
+        return definitions;
     }
 
 
@@ -46,5 +63,28 @@ public class SlangWordRepositoryImpl implements SlangWordRepository {
     @Override
     public SlangWordEntity findByWord(String word) {
         return dictionary.get(word);
+    }
+
+    @Override
+    public List<SlangWordEntity> findByDefinition(String definition) {
+        List<Set<String>> sets = new ArrayList<>();
+        List<String> tokens = TokenUtil.splitToTokens(definition);
+        if (tokens == null || tokens.isEmpty()) return Collections.emptyList();
+        for (String token : tokens) {
+            Set<String> set = definitionTokens.get(token);
+            if (set == null || set.isEmpty()) return Collections.emptyList();
+            sets.add(set);
+        }
+        sets.sort(Comparator.comparingInt(Set::size));
+        Set<String> words = new HashSet<>(sets.getFirst());
+        for (int i = 1; i < sets.size(); i++) {
+            words.retainAll(sets.get(i));
+            if (words.isEmpty()) return Collections.emptyList();
+        }
+        List<SlangWordEntity> result = new ArrayList<>();
+        for (String word : words) {
+            result.add(findByWord(word));
+        }
+        return result;
     }
 }
