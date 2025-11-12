@@ -8,10 +8,7 @@
             fx:controller="com.project1.slangdictionary.controller.MainController">
     <top>
         <MenuBar>
-            <Menu text="File">
-                <MenuItem text="Reset to Original"/>
-                <MenuItem text="Exit"/>
-            </Menu>
+            <Menu text="File"/>
         </MenuBar>
     </top>
     <center>
@@ -29,14 +26,34 @@
                         <TextField fx:id="searchDefinition" promptText="Search by definition"/>
                         <Button text="search" onAction="#handleSearchDefinition"/>
                     </HBox>
-                    <TableView fx:id="tableView">
+                    <TableView fx:id="tableViewSearch" VBox.vgrow="ALWAYS">
                         <columns>
                             <TableColumn text="Word" fx:id="columnWord"/>
                             <TableColumn text="Definitions" fx:id="columnDefs"/>
                         </columns>
                     </TableView>
-                </VBox>
 
+                </VBox>
+            </Tab>
+            <Tab text="History" fx:id="historyTab" onSelectionChanged="#handleHistoryTabChanged">
+                <VBox>
+                    <padding>
+                        <Insets top="20" right="20" bottom="20" left="20" />
+                    </padding>
+                    <TableView fx:id="tableViewHistory" VBox.vgrow="ALWAYS">
+                        <columns>
+                            <TableColumn text="Search by" fx:id="columnSearchBy"/>
+                            <TableColumn text="Time" fx:id="columnTime"/>
+                            <TableColumn text="Content" fx:id="columnContent"/>
+                        </columns>
+                    </TableView>
+                    <HBox spacing="2">
+                        <VBox.margin>
+                            <Insets top="12"/>
+                        </VBox.margin>
+                        <Button text="Clear History" onAction="#handleClearHistory"/>
+                    </HBox>
+                </VBox>
             </Tab>
         </TabPane>
     </center>

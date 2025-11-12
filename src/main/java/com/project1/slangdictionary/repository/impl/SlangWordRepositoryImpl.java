@@ -10,12 +10,12 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class SlangWordRepositoryImpl implements SlangWordRepository {
-    private String path;
+    private String filePath;
     private Map<String, SlangWordEntity> dictionary;
     private Map<String, Set<String>> definitionTokens = new HashMap<>();
 
     public SlangWordRepositoryImpl() {
-        this.path = "data/slang.txt";
+        this.filePath = "data/slang.txt";
         this.dictionary = readDictionary();
         this.definitionTokens = buildDefinitions();
     }
@@ -40,7 +40,7 @@ public class SlangWordRepositoryImpl implements SlangWordRepository {
 
     private Map<String, SlangWordEntity> readDictionary() {
         Map<String, SlangWordEntity> dictionary = new HashMap<>();
-        try(BufferedReader br = new BufferedReader(new FileReader(path));) {
+        try(BufferedReader br = new BufferedReader(new FileReader(filePath));) {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] parts = line.split("`", 2);
