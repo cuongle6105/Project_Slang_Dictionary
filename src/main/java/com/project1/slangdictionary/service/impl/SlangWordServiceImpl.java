@@ -6,6 +6,8 @@ import com.project1.slangdictionary.repository.impl.SlangWordRepositoryImpl;
 import com.project1.slangdictionary.service.SlangWordService;
 
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class SlangWordServiceImpl implements SlangWordService {
     private final SlangWordRepository slangWordRepository;
@@ -29,4 +31,41 @@ public class SlangWordServiceImpl implements SlangWordService {
     public List<SlangWordEntity> findByDefinition(String definition) {
         return slangWordRepository.findByDefinition(definition);
     }
+
+    @Override
+    public boolean add(SlangWordEntity slangWordEntity) {
+        SlangWordEntity slangWord = slangWordRepository.findByWord(slangWordEntity.getWord());
+        if (slangWord == null) {
+            slangWordRepository.add(slangWordEntity);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public void addOverwrite(SlangWordEntity slangWordEntity) {
+        SlangWordEntity slangWord = slangWordRepository.findByWord(slangWordEntity.getWord());
+        if (slangWord != null) {
+            slangWordRepository.update(slangWordEntity);
+        }
+    }
+
+    @Override
+    public void addDuplicate(SlangWordEntity slangWordEntity) {
+        SlangWordEntity slangWord = slangWordRepository.findByWord(slangWordEntity.getWord());
+        if (slangWord != null) {
+            slangWordEntity.setDefinition(Stream.concat(slangWord.getDefinition().stream(), slangWordEntity.getDefinition().stream()).distinct().collect(Collectors.toList()));
+            slangWordRepository.update(slangWordEntity);
+        }
+    }
+
+    @Override
+    public void remove(SlangWordEntity slangWordEntity) {
+        SlangWordEntity slangWord = slangWordRepository.findByWord(slangWordEntity.getWord());
+        if (slangWord != null) {
+            slangWordRepository.remove(slangWordEntity);
+        }
+    }
+
+
 }

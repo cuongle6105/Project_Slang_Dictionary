@@ -9,4 +9,7 @@ public interface SlangWordRepository {
     List<SlangWordEntity> findAll();
     SlangWordEntity findByWord(String word);
     List<SlangWordEntity> findByDefinition(String definition);
+    void add(SlangWordEntity slangWord);
+    void update(SlangWordEntity slangWord);
+    void remove(SlangWordEntity slangWord);
 }

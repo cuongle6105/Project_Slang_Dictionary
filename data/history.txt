@@ -1,0 +1,29 @@
+Definition,13/11/2025 15:52:17,1
+Definition,13/11/2025 15:52:18,1
+Definition,13/11/2025 15:52:18,1
+Definition,13/11/2025 15:52:18,1
+Definition,13/11/2025 15:52:33,1
+Slang Word,13/11/2025 15:52:42,ds
+Slang Word,14/11/2025 23:08:18,Cuong
+Definition,14/11/2025 23:08:32,money
+Slang Word,14/11/2025 23:09:09,Cuong
+Slang Word,14/11/2025 23:09:22,Cuong
+Slang Word,14/11/2025 23:10:03,Cuong
+Slang Word,14/11/2025 23:44:42,Cuong
+Slang Word,14/11/2025 23:45:23,Cuong
+Slang Word,14/11/2025 23:45:35,Cuong
+Slang Word,14/11/2025 23:49:29,Cuong
+Slang Word,14/11/2025 23:49:35,Cuong
+Slang Word,14/11/2025 23:49:46,Cuong
+Slang Word,14/11/2025 23:52:41,Cuong
+Slang Word,14/11/2025 23:52:54,Cuong
+Slang Word,14/11/2025 23:53:05,Cuong
+Slang Word,14/11/2025 23:53:19,Cuong
+Slang Word,14/11/2025 23:53:33,Cuong
+Slang Word,15/11/2025 00:01:45,Cuong
+Slang Word,15/11/2025 00:02:01,Cuong
+Slang Word,15/11/2025 00:02:15,Cuong
+Slang Word,15/11/2025 00:28:25,Cuong
+Slang Word,15/11/2025 00:28:37,Cuong
+Slang Word,15/11/2025 00:28:48,Cuong
+Slang Word,15/11/2025 00:29:05,#1

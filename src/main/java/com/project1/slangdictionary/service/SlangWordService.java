@@ -8,5 +8,8 @@ public interface SlangWordService {
     List<SlangWordEntity> findAll();
     SlangWordEntity findByWord(String word);
     List<SlangWordEntity> findByDefinition(String definition);
-    
+    boolean add(SlangWordEntity slangWordEntity);
+    void addOverwrite(SlangWordEntity slangWordEntity);
+    void addDuplicate(SlangWordEntity slangWordEntity);
+    void remove(SlangWordEntity slangWordEntity);
 }

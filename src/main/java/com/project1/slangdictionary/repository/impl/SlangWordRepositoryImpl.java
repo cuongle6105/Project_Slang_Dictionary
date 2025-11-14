@@ -4,8 +4,7 @@ import com.project1.slangdictionary.entity.SlangWordEntity;
 import com.project1.slangdictionary.repository.SlangWordRepository;
 import com.project1.slangdictionary.util.TokenUtil;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
+import java.io.*;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -17,24 +16,30 @@ public class SlangWordRepositoryImpl implements SlangWordRepository {
     public SlangWordRepositoryImpl() {
         this.filePath = "data/slang.txt";
         this.dictionary = readDictionary();
-        this.definitionTokens = buildDefinitions();
+        this.definitionTokens = buildDefinitionTokens();
     }
 
-    private Map<String, Set<String>> buildDefinitions () {
+
+
+    private Map<String, Set<String>> buildDefinitionTokens () {
         Map<String, Set<String>> definitions = new HashMap<>();
         for (SlangWordEntity slangWordEntity : dictionary.values()) {
-            for (String definition : slangWordEntity.getDefinition()) {
-                for (String token : TokenUtil.splitToTokens(definition)) {
-                    Set<String> set = definitions.get(token);
-                    if (set == null) {
-                        set = new HashSet<>();
-                        definitions.put(token, set);
-                    }
-                    set.add(slangWordEntity.getWord());
-                }
-            }
+            splitDefinitions(definitions, slangWordEntity);
         }
         return definitions;
+    }
+
+    private void splitDefinitions(Map<String, Set<String>> definitions, SlangWordEntity slangWordEntity) {
+        for (String definition : slangWordEntity.getDefinition()) {
+            for (String token : TokenUtil.splitToTokens(definition)) {
+                Set<String> set = definitions.get(token);
+                if (set == null || set.isEmpty()) {
+                    set = new HashSet<>();
+                    definitions.put(token, set);
+                }
+                set.add(slangWordEntity.getWord());
+            }
+        }
     }
 
 
@@ -46,13 +51,13 @@ public class SlangWordRepositoryImpl implements SlangWordRepository {
                 String[] parts = line.split("`", 2);
                 if (parts.length != 2) continue;
                 String word = parts[0];
-                String[] definition = parts[1].split("\\|");
+                String[] definition = parts[1].split("\\s*\\|\\s*");
                 dictionary.put(word, new SlangWordEntity(word, Arrays.asList(definition)));
             }
-            return dictionary;
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            System.out.println(e.getMessage());
         }
+        return dictionary;
     }
 
     @Override
@@ -86,5 +91,57 @@ public class SlangWordRepositoryImpl implements SlangWordRepository {
             result.add(findByWord(word));
         }
         return result;
+    }
+
+    @Override
+    public void add(SlangWordEntity slangWord) {
+        try(BufferedWriter bw = new BufferedWriter(new FileWriter(filePath, true))) {
+            bw.write(slangWord.getWord() + "`" + String.join("|", slangWord.getDefinition()));
+            dictionary.put(slangWord.getWord(), slangWord);
+            splitDefinitions(definitionTokens, slangWord);
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    @Override
+    public void update(SlangWordEntity slangWord) {
+        SlangWordEntity slangWordEntity = dictionary.get(slangWord.getWord());
+        removeTokensInDefinitionTokens(slangWordEntity);
+
+        dictionary.put(slangWord.getWord(), slangWord);
+        splitDefinitions(definitionTokens, slangWord);
+        writeFile();
+    }
+
+    private void removeTokensInDefinitionTokens(SlangWordEntity slangWordEntity) {
+        for (String definition : slangWordEntity.getDefinition()) {
+            for (String token : TokenUtil.splitToTokens(definition)) {
+                Set<String> set = definitionTokens.get(token);
+                if (set != null) {
+                    set.remove(slangWordEntity.getWord());
+                    if (set.isEmpty()) definitionTokens.remove(token);
+                }
+            }
+        }
+    }
+
+    @Override
+    public void remove(SlangWordEntity slangWord) {
+        SlangWordEntity slangWordEntity = dictionary.get(slangWord.getWord());
+        removeTokensInDefinitionTokens(slangWordEntity);
+        dictionary.remove(slangWord.getWord());
+        writeFile();
+    }
+
+    private void writeFile() {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(filePath))) {
+            for (SlangWordEntity slangWordEntity : dictionary.values()) {
+                bw.write(slangWordEntity.getWord() + "`" + String.join("|", slangWordEntity.getDefinition()));
+                bw.newLine();
+            }
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
     }
 }

@@ -5,7 +5,7 @@
 <?import javafx.geometry.Insets?>
 
 <BorderPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.project1.slangdictionary.controller.MainController">
+            fx:controller="com.project1.slangdictionary.controller.MainController" fx:id="rootPane">
     <top>
         <MenuBar>
             <Menu text="File"/>
@@ -30,9 +30,16 @@
                         <columns>
                             <TableColumn text="Word" fx:id="columnWord"/>
                             <TableColumn text="Definitions" fx:id="columnDefs"/>
+                            <TableColumn text="Actions" fx:id="columnActions" sortable="false"/>
                         </columns>
                     </TableView>
 
+                    <HBox spacing="4">
+                        <VBox.margin>
+                            <Insets top="12"/>
+                        </VBox.margin>
+                        <Button text="Add New Slang Word" onAction="#handleAddSlangWord"/>
+                    </HBox>
                 </VBox>
             </Tab>
             <Tab text="History" fx:id="historyTab" onSelectionChanged="#handleHistoryTabChanged">
