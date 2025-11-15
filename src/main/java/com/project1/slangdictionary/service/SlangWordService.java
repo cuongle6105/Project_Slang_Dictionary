@@ -1,5 +1,6 @@
 package com.project1.slangdictionary.service;
 
+import com.project1.slangdictionary.dto.QuizQuestionDTO;
 import com.project1.slangdictionary.entity.SlangWordEntity;
 
 import java.util.List;
@@ -13,4 +14,7 @@ public interface SlangWordService {
     void addDuplicate(SlangWordEntity slangWordEntity);
     void remove(SlangWordEntity slangWordEntity);
     void reset();
+    SlangWordEntity random();
+    public List<QuizQuestionDTO> createSlangWordsQuizQuestions(int numberOfQuestions, int numberOfOptions);
+    public List<QuizQuestionDTO> createDefinitionsQuizQuestions(int numberOfQuestions, int numberOfOptions);
 }

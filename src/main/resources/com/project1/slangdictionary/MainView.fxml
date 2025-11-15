@@ -12,6 +12,13 @@
                 <MenuItem text="Reset to Original" onAction="#handleReset" />
                 <MenuItem text="Exit" onAction="#handleExit" />
             </Menu>
+            <Menu text="Random">
+                <MenuItem text="On this day" onAction="#handleRandom" />
+            </Menu>
+            <Menu text="Quiz">
+                <MenuItem text="Slang Word -> Definition" onAction="#handleQuizSlangWord" />
+                <MenuItem text="Definition -> Slang Word" onAction="#handleQuizDefinition" />
+            </Menu>
         </MenuBar>
     </top>
     <center>
