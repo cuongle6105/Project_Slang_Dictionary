@@ -10,12 +10,14 @@ import java.util.stream.Collectors;
 
 public class SlangWordRepositoryImpl implements SlangWordRepository {
     private String filePath;
+    private String originalFilePath;
     private Map<String, SlangWordEntity> dictionary;
     private Map<String, Set<String>> definitionTokens = new HashMap<>();
 
     public SlangWordRepositoryImpl() {
         this.filePath = "data/slang.txt";
-        this.dictionary = readDictionary();
+        this.originalFilePath = "data/slang_original.txt";
+        this.dictionary = readDictionary(filePath);
         this.definitionTokens = buildDefinitionTokens();
     }
 
@@ -43,7 +45,7 @@ public class SlangWordRepositoryImpl implements SlangWordRepository {
     }
 
 
-    private Map<String, SlangWordEntity> readDictionary() {
+    private Map<String, SlangWordEntity> readDictionary(String filePath) {
         Map<String, SlangWordEntity> dictionary = new HashMap<>();
         try(BufferedReader br = new BufferedReader(new FileReader(filePath));) {
             String line;
@@ -111,7 +113,7 @@ public class SlangWordRepositoryImpl implements SlangWordRepository {
 
         dictionary.put(slangWord.getWord(), slangWord);
         splitDefinitions(definitionTokens, slangWord);
-        writeFile();
+        writeFile(filePath);
     }
 
     private void removeTokensInDefinitionTokens(SlangWordEntity slangWordEntity) {
@@ -131,10 +133,17 @@ public class SlangWordRepositoryImpl implements SlangWordRepository {
         SlangWordEntity slangWordEntity = dictionary.get(slangWord.getWord());
         removeTokensInDefinitionTokens(slangWordEntity);
         dictionary.remove(slangWord.getWord());
-        writeFile();
+        writeFile(filePath);
     }
 
-    private void writeFile() {
+    @Override
+    public void reset() {
+        this.dictionary = readDictionary(originalFilePath);
+        this.definitionTokens = buildDefinitionTokens();
+        writeFile(filePath);
+    }
+
+    private void writeFile(String filePath) {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(filePath))) {
             for (SlangWordEntity slangWordEntity : dictionary.values()) {
                 bw.write(slangWordEntity.getWord() + "`" + String.join("|", slangWordEntity.getDefinition()));
@@ -144,4 +153,5 @@ public class SlangWordRepositoryImpl implements SlangWordRepository {
             System.out.println(e.getMessage());
         }
     }
+
 }

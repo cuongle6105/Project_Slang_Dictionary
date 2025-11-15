@@ -12,4 +12,5 @@ public interface SlangWordRepository {
     void add(SlangWordEntity slangWord);
     void update(SlangWordEntity slangWord);
     void remove(SlangWordEntity slangWord);
+    void reset();
 }

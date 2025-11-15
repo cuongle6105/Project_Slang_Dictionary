@@ -8,7 +8,10 @@
             fx:controller="com.project1.slangdictionary.controller.MainController" fx:id="rootPane">
     <top>
         <MenuBar>
-            <Menu text="File"/>
+            <Menu text="File">
+                <MenuItem text="Reset to Original" onAction="#handleReset" />
+                <MenuItem text="Exit" onAction="#handleExit" />
+            </Menu>
         </MenuBar>
     </top>
     <center>

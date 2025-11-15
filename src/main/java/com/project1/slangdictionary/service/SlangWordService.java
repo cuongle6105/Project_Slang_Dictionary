@@ -12,4 +12,5 @@ public interface SlangWordService {
     void addOverwrite(SlangWordEntity slangWordEntity);
     void addDuplicate(SlangWordEntity slangWordEntity);
     void remove(SlangWordEntity slangWordEntity);
+    void reset();
 }

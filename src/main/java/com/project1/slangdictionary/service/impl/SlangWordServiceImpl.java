@@ -67,5 +67,10 @@ public class SlangWordServiceImpl implements SlangWordService {
         }
     }
 
+    @Override
+    public void reset() {
+        slangWordRepository.reset();
+    }
+
 
 }

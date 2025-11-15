@@ -339,4 +339,30 @@ public class MainController {
         showInfo("Deleted", "Slang word deleted successfully.");
         itemSearch.setAll(slangWordService.findAll());
     }
+
+    @FXML private void handleReset() {
+        Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
+        confirm.setTitle("Reset slang word");
+        confirm.setHeaderText("Reset to original language word");
+        confirm.setContentText("This action cannot be undone.");
+
+        Optional<ButtonType> result = confirm.showAndWait();
+        if (result.isEmpty() || result.get() != ButtonType.OK) {
+            return;
+        }
+
+        slangWordService.reset();
+        itemSearch.setAll(slangWordService.findAll());
+    }
+    @FXML private void handleExit() {
+        Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
+        confirm.setTitle("Confirm");
+        confirm.setHeaderText("Do you want to exit?");
+
+        Optional<ButtonType> result = confirm.showAndWait();
+        if (result.isEmpty() || result.get() != ButtonType.OK) {
+            return;
+        }
+        System.exit(0);
+    }
 }
