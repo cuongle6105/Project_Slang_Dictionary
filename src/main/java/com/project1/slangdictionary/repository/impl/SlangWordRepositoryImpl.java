@@ -83,7 +83,7 @@ public class SlangWordRepositoryImpl implements SlangWordRepository {
             sets.add(set);
         }
         sets.sort(Comparator.comparingInt(Set::size));
-        Set<String> words = new HashSet<>(sets.getFirst());
+        Set<String> words = new HashSet<>(sets.get(0));
         for (int i = 1; i < sets.size(); i++) {
             words.retainAll(sets.get(i));
             if (words.isEmpty()) return Collections.emptyList();

@@ -4,7 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.geometry.Insets?>
 
-<BorderPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+<BorderPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.project1.slangdictionary.controller.MainController" fx:id="rootPane">
     <top>
         <MenuBar>
@@ -22,7 +22,7 @@
         </MenuBar>
     </top>
     <center>
-        <TabPane>
+        <TabPane tabClosingPolicy="UNAVAILABLE">
             <Tab text="Search">
                 <VBox spacing="8">
                     <padding>
