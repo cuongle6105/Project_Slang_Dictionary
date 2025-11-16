@@ -284,6 +284,7 @@ public class MainController {
 
         TextField wordField = new TextField(slangWordEntity.getWord());
         wordField.setEditable(false);
+        wordField.setDisable(true);
 
         String currentDefinitions = String.join(" | ", slangWordEntity.getDefinition());
         TextField defsField = new TextField(currentDefinitions);
@@ -347,7 +348,8 @@ public class MainController {
         itemSearch.setAll(slangWordService.findAll());
     }
 
-    @FXML private void handleReset() {
+    @FXML
+    private void handleReset() {
         Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
         confirm.setTitle("Reset slang word");
         confirm.setHeaderText("Reset to original language word");
@@ -361,7 +363,8 @@ public class MainController {
         slangWordService.reset();
         itemSearch.setAll(slangWordService.findAll());
     }
-    @FXML private void handleExit() {
+    @FXML
+    private void handleExit() {
         Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
         confirm.setTitle("Confirm");
         confirm.setHeaderText("Do you want to exit?");
