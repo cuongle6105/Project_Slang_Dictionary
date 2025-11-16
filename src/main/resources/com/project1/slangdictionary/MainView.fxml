@@ -38,7 +38,7 @@
                     </HBox>
                     <TableView fx:id="tableViewSearch" VBox.vgrow="ALWAYS">
                         <columns>
-                            <TableColumn text="Word" fx:id="columnWord"/>
+                            <TableColumn text="Slang Word" fx:id="columnWord"/>
                             <TableColumn text="Definitions" fx:id="columnDefs"/>
                             <TableColumn text="Actions" fx:id="columnActions" sortable="false"/>
                         </columns>

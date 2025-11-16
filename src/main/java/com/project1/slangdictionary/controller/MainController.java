@@ -560,7 +560,7 @@ public class MainController {
         } else if (score < 5) {
             message = "Your score isn’t very high yet—keep trying!";
         } else {
-            message = "Pretty good already—just a bit more practice and you’ll nail it! 🙂";
+            message = "Pretty good already—just a bit more practice and you’ll nail it!";
         }
 
         alert.setContentText(message);
