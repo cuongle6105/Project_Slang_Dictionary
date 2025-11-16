@@ -252,6 +252,7 @@ public class MainController {
             slangWordService.addDuplicate(slangWordEntity);
             showInfo("Success", "Duplicated slang word successfully.");
         } else if (choice.get() == overwriteBtn) {
+            slangWordService.addOverwrite(slangWordEntity);
             showInfo("Success", "Overwrote slang word successfully.");
         }
     }
@@ -473,11 +474,11 @@ public class MainController {
             String text = "Which option best matches \"" + quizQuestionDTO.getQuestion() + "\"?";
             lblQuestion.setText(text);
 
-            // reset radio và style
+
             toggleGroup.selectToggle(null);
             lblFeedback.setText("");
             for (RadioButton rb : optionButtons) {
-                rb.setStyle(""); // bỏ màu cũ
+                rb.setStyle("");
             }
 
             for (int i = 0; i < NUMBER_OF_OPTIONS; i++) {

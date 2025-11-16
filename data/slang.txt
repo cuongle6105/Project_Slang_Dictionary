@@ -1158,6 +1158,7 @@ DAE`Does Anybody Else
 DAG`Damn|Unfashionable person
 APPROX`Approximately
 DAM`Don't Ask Me
+Cuong`a
 DAP`Touching of fists greeting
 ;O`Joking
 ;P`Winking and sticking tongue out
