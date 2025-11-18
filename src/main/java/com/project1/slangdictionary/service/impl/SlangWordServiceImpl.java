@@ -6,6 +6,8 @@ import com.project1.slangdictionary.repository.SlangWordRepository;
 import com.project1.slangdictionary.repository.impl.SlangWordRepositoryImpl;
 import com.project1.slangdictionary.service.SlangWordService;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -81,7 +83,13 @@ public class SlangWordServiceImpl implements SlangWordService {
         if (slangWordEntities.isEmpty()) {
             return null;
         }
-        return slangWordEntities.get(random.nextInt(slangWordEntities.size()));
+
+        LocalDate today = LocalDate.now();
+        long seed = today.toEpochDay();
+        Random randomForToday = new Random(seed);
+        int index = randomForToday.nextInt(slangWordEntities.size());
+
+        return slangWordEntities.get(index);
     }
 
     @Override
